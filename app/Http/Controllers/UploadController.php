@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\UploadRequest;
+use App\UploadService;
+use Illuminate\Http\Request;
+
+class UploadController extends Controller
+{
+    protected UploadService $uploadService;
+
+    public function __construct(UploadService $uploadService)
+    {
+        $this->uploadService = $uploadService;
+    }
+
+    public function upload(UploadRequest $request)
+    {
+        $validated = $request->validated();
+
+        $file = $request->file('file');
+
+        $this->uploadService->uploadFile($file, $validated);
+
+        return response()->json(['message'=>'File uploaded']);
+    }
+}
