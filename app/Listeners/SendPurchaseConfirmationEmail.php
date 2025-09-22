@@ -2,20 +2,15 @@
 
 namespace App\Listeners;
 
-
-use App\Mail\WelcomeMail;
-use App\Models\User;
-use Illuminate\Auth\Events\Registered;
+use App\Events\PurchaseMade;
+use App\Mail\ConfirmationMail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
 
-class SendWelcomeEmail implements ShouldQueue
+class SendPurchaseConfirmationEmail implements ShouldQueue
 {
-
     use InteractsWithQueue;
-
-    public $user;
     public function __construct()
     {
 
@@ -24,8 +19,8 @@ class SendWelcomeEmail implements ShouldQueue
     /**
      * Handle the event.
      */
-    public function handle(Registered $event): void
+    public function handle(PurchaseMade $event): void
     {
-        Mail::to($event->user->email)->send(new WelcomeMail($event->user));
+        Mail::to($event->user->email)->send(new ConfirmationMail($event->user, $event->amount));
     }
 }

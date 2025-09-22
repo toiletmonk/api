@@ -10,16 +10,16 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class PasswordResetRequested
+class PaymentSucceded
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /**
-     * Create a new event instance.
-     */
-    public function __construct(string $email)
+    public $user;
+    public $intent;
+    public function __construct($user, int $intent)
     {
-        $this->email = $email;
+        $this->user = $user;
+        $this->intent = $intent;
     }
 
     /**

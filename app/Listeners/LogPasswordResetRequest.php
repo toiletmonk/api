@@ -2,26 +2,24 @@
 
 namespace App\Listeners;
 
-use App\Events\PasswordResetRequested;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Log;
 
 class LogPasswordResetRequest implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     */
+    use InteractsWithQueue;
     public function __construct()
     {
-        //
+
     }
 
     /**
      * Handle the event.
      */
-    public function handle(PasswordResetRequested $event): void
+    public function handle(PasswordReset $event): void
     {
-        Log::info('Password reset requested for email: ' . $event->email);
+        Log::info('Password has been reset for user: ' . $event->user->email);
     }
 }
