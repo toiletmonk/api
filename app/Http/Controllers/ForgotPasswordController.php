@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\PasswordResetRequested;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 
