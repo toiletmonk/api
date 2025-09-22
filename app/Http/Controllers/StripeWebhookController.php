@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PaymentFailed;
 use App\Events\PaymentSucceded;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -29,6 +30,9 @@ class StripeWebhookController extends Controller
         switch ($event->type) {
             case 'payment_intent.succeeded':
                 event(new PaymentSucceded($user, $intent));
+                break;
+            case 'payment_intent.failed':
+                event(new PaymentFailed($user, $intent));
                 break;
 
             default:
